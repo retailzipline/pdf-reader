@@ -140,9 +140,9 @@ module PDF
           glyph_width = @state.current_font.glyph_width_in_text_space(glyph_code)
           th = 1
           scaled_glyph_width = glyph_width * @state.font_size * th
-          unless utf8_chars == SPACE
+          # unless utf8_chars == SPACE
             @characters << TextRun.new(newx, newy, scaled_glyph_width, @state.font_size, utf8_chars)
-          end
+          # end
           @state.process_glyph_displacement(glyph_width, 0, utf8_chars == SPACE)
         end
       end
