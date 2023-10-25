@@ -246,6 +246,9 @@ module PDF
           disjoint_set.each do |l1|
             next if l0 == l1
             next if disjoint_set.find(l0) == disjoint_set.find(l1)
+            # TODO: Don't join paragraphs with significantly different font sizes
+            #       Unfortunately, the example PDF has large differences but they
+            #       aren't reflected in the font_size. Double check this.
 
             overlap_percentage = l0.horizontal_overlap(l1)
             leading = (l0.y - l1.y).abs / [l0.font_size, l1.font_size].min
@@ -262,10 +265,13 @@ module PDF
           # remember, pdf page origin is bottom left corner
           leftmost_x = set.map(&:x).min
           topmost_y = set.map(&:y).max
+          # TODO: Remove hyphens from line breaks?
           text = set.map { |run| run.text.strip }.join(' ')
 
           PDF::Reader::Paragraph.new(text, PDF::Reader::Point.new(leftmost_x, topmost_y))
         end
+
+        # TODO: Output text by how paragraphs are organized spatially
 
         paragraphs.map(&:text)
       end
