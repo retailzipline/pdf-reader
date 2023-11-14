@@ -207,6 +207,7 @@ module PDF
 
     class DisjointSet
       include Enumerable
+      Elem = type_member { {fixed: T.untyped} }
 
       sig { void }
       def initialize
@@ -217,7 +218,6 @@ module PDF
       sig { params(item: T.anything).returns(T::Boolean) }
       def contains(item); end
 
-      # sig { override.params(block: T.nilable(T.proc.params(arg0: Enumerable::Elem).returns(BasicObject))).returns(T.any(T::Hash[T.untyped, T.untyped], T::Enumerator[T.untyped])) }
       sig { override.params(block: T.nilable).returns(T.any(T::Hash[T.untyped, T.untyped], T::Enumerator[T.untyped])) }
       def each(&block); end
 
