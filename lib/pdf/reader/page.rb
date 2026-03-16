@@ -266,7 +266,7 @@ module PDF
           leftmost_x = set.map(&:x).min
           topmost_y = set.map(&:y).max
           # TODO: Remove hyphens from line breaks?
-          text = set.map { |run| run.text.strip }.join(' ')
+          text = set.map { |run| run.text.scrub('').strip }.join(' ')
 
           PDF::Reader::Paragraph.new(text, PDF::Reader::Point.new(leftmost_x, topmost_y))
         end
